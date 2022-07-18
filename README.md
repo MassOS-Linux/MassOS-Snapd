@@ -11,7 +11,7 @@ MassOS **2022.07** or later is required.
 # Installing
 To install it, first run this command in a terminal to download the setup script:
 ```
-curl -LOs https://raw.githubusercontent.com/MassOS-Linux/MassOS/main/install-snapd.sh
+curl -LOs https://raw.githubusercontent.com/MassOS-Linux/MassOS-Snapd/main/install-snapd.sh
 ```
 Make the script executable like this:
 ```
