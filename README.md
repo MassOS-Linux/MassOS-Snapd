@@ -9,7 +9,15 @@ Since snapd is highly controversial, it will **NOT** be installed on MassOS by d
 MassOS **2022.07** or later is required.
 
 # Installing
-To install it, first run this command in a terminal to download the setup script:
+All of the following commands should be run in a terminal. Find the terminal app or press Control+Alt+T to open the terminal. Commands prepended with `sudo` may require you to enter your user password.
+
+Before installing, set the default `tar` implementation to GNU tar (required for snapd's snapshotting functionality to work):
+```
+sudo set-default-tar gtar
+```
+If you want to change it back to the original later, replace `gtar` with `bsdtar` in the above command.
+
+To install snapd, first download the setup script:
 ```
 curl -LOs https://raw.githubusercontent.com/MassOS-Linux/MassOS-Snapd/main/install-snapd.sh
 ```
