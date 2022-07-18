@@ -5,6 +5,9 @@ This is designed to improve software support on MassOS and complement Flatpak.
 
 Since snapd is highly controversial, it will **NOT** be installed on MassOS by default, however you can easily install it using the scripts in this repository.
 
+# Requirements
+MassOS **2022.07** or later is required.
+
 # Installing
 To install it, first run this command in a terminal to download the setup script:
 ```
