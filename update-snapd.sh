@@ -44,6 +44,10 @@ if [ "$answer" != "y" ]; then
   exit 1
 fi
 
+# Stop existing snapd service.
+systemctl -q stop snapd
+systemctl -q stop snapd.apparmor
+
 # Change to a working directory.
 savedir="$PWD"
 workdir="$(mktemp -d)"
@@ -60,7 +64,8 @@ tar --no-same-owner --same-permissions -xf snapd-${SNAPD_VERSION}-x86_64-MassOS.
 
 # Install updated snapd files.
 echo "Upgrading snapd ${OLD_SNAPD_VERSION} to ${SNAPD_VERSION}..."
-find pkg -type f -exec cp -a {} / ';'
+cd pkg
+find . -type f -exec cp -a {} /{} ';'
 
 # Post installation stuff.
 update-desktop-database
