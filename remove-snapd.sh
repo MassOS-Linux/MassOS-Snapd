@@ -24,13 +24,8 @@ if ! snap list &>/dev/null; then
   exit 1
 fi
 
-# Ensure no snap packages are installed.
-if [ "$(snap list 2>&1 | cut -d. -f1)" != "No snaps are installed yet" ]; then
-  echo "Error: You must uninstall all snap packages before removing snapd." >&2
-  exit 1
-fi
-
 # Confirmation prompt.
+echo "WARNING: snapd and all installed snap packages will be REMOVED." >&2
 read -p "Would you like to completely remove snapd now? [y/N] " ans
 answer="$(echo "$ans" | cut -c1 | tr '[:upper:]' '[:lower:]')"
 if [ "$answer" != "y" ]; then
@@ -39,8 +34,24 @@ fi
 
 # Disable systemd services.
 echo "Stopping and disabling snapd services..."
-systemctl disable --now snapd
-systemctl disable --now snapd.apparmor
+systemctl -q stop snapd
+systemctl -q stop snapd.apparmor
+systemctl disable snapd
+systemctl disable snapd.apparmor
+
+# Each snap package has a systemd mount unit; stop, disable, remove them all.
+while read -r unit; do
+  systemctl disable --now "$unit"
+  rm -f /etc/systemd/system/"$unit"
+done <<< $(find /etc/systemd/system -type f -name 'snap-*' -and -name '*.mount' -exec basename -a {} +)
+
+# Ensure no more snap packages are mounted.
+if mount | grep -q /var/lib/snapd/snaps; then
+  echo "Error: It looks like some snap packages are still mounted." >&2
+  echo "Consider rebooting your system then running this script again." >&2
+  systemctl restart apparmor
+  exit 1
+fi
 
 # Remove all snapd components.
 echo "Completely removing snapd..."

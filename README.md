@@ -45,17 +45,9 @@ If there is an update available, the script will prompt you to update. Answer `y
 After the update, you **WILL** need to reboot your system.
 
 # Removing
-If you decide you want to completely remove snapd from your system, you must first uninstall all snap packages.
+If you decide you want to completely remove snapd from your system, for the best result you should try to make sure no snap packages are running.
 
-To find out what snap packages you currently have installed, run the following command:
-```
-snap list
-```
-Remove a package like this (do this for all packages, **making sure to replace** `<package-name>` **with the package name**):
-```
-snap remove --purge <package-name>
-```
-Once all the installed snaps are removed, uninstall snapd by running the following command:
+To completely uninstall snapd and all installed snap packages, run the following command:
 ```
 sudo /usr/lib/snapd/remove-snapd.sh
 ```
