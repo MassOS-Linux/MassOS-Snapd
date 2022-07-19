@@ -60,3 +60,10 @@ Once all the installed snaps are removed, uninstall snapd by running the followi
 sudo /usr/lib/snapd/remove-snapd.sh
 ```
 You should reboot after the removal to ensure everything is cleaned up properly.
+
+# GUI software center
+Optionally, install the Snap Store by using the following command:
+```
+snap install snap-store
+```
+Then you will be able to use the graphical "Snap Store" app to find, install and manage snap packages.
