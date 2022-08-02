@@ -77,6 +77,7 @@ cd snapd
 ./mkversion.sh ${SNAPD_VERSION} 2>/dev/null
 go build -trimpath -ldflags "-s -w -linkmode external" -o ../go/bin/snap -tags nomanagers "github.com/snapcore/snapd/cmd/snap"
 go build -trimpath -ldflags "-s -w -linkmode external" -o ../go/bin/snapd "github.com/snapcore/snapd/cmd/snapd"
+go build -trimpath -ldflags "-s -w -linkmode external" -o ../go/bin/snapd-apparmor "github.com/snapcore/snapd/cmd/snapd-apparmor"
 go build -trimpath -ldflags "-s -w -linkmode external" -o ../go/bin/snap-seccomp "github.com/snapcore/snapd/cmd/snap-seccomp"
 go build -trimpath -ldflags "-s -w -linkmode external" -o ../go/bin/snap-failure "github.com/snapcore/snapd/cmd/snap-failure"
 go build -trimpath -ldflags "-s -w -linkmode external -extldflags '-static'" -o ../go/bin/snap-update-ns "github.com/snapcore/snapd/cmd/snap-update-ns"
@@ -98,7 +99,7 @@ make -C data DBUSSERVICESDIR=/usr/share/dbus-1/services SYSTEMDSYSTEMUNITDIR=/us
 install -t "$PKGDIR"/usr/share/polkit-1/actions -Dm644 data/polkit/io.snapcraft.snapd.policy
 ## Snap itself.
 install -t "$PKGDIR"/usr/bin -Dm755 ../go/bin/snap
-install -t "$PKGDIR"/usr/lib/snapd -Dm755 ../go/bin/snap{ctl,d,-exec,-failure,-seccomp,-update-ns}
+install -t "$PKGDIR"/usr/lib/snapd -Dm755 ../go/bin/snap{ctl,d{,-apparmor},-exec,-failure,-seccomp,-update-ns}
 ln -sfr "$PKGDIR"/usr/lib/snapd/snapctl "$PKGDIR"/usr/bin/snapctl
 install -dm755 "$PKGDIR"/snap
 install -dm755 "$PKGDIR"/var/cache/snapd
