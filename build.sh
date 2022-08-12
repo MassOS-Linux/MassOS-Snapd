@@ -49,7 +49,7 @@ cd "$wdir"
 
 # Download the stuff.
 echo "Downloading snapd..."
-curl -L https://github.com/snapcore/snapd/releases/download/${SNAPD_VERSION}/snapd_${SNAPD_VERSION}.vendor.tar.xz -o snapd.tar.xz
+curl -L https://github.com/snapcore/snapd/releases/download/${SNAPD_VERSION}/snapd_${SNAPD_VERSION}.tar.xz -o snapd.tar.xz
 echo "Downloading golang..."
 curl -L https://dl.google.com/go/go1.18.3.linux-amd64.tar.gz -o go.tar.gz
 
